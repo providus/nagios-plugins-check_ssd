@@ -100,7 +100,7 @@ CRITICAL_THRESHOLD="${CRITICAL_THRESHOLD%\%}"
 if [ $# -gt 0 ];then
     DEVICES="$1"
 else
-    DEVICES=$( awk '$4~/^\wd\w$/{print "/dev/"$4}' /proc/partitions )
+    DEVICES=$( awk '$4~/^(nvme\wn\w|sd\w)$/{print "/dev/"$4}' /proc/partitions )
 fi
 
 SMARTCTL=$( which smartctl )
