@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 #
 # ## Plugin for Nagios to monitor the ssd life
 # ## Written by Ryo Kuroda
