@@ -12,7 +12,8 @@
 #
 # ## Description:
 #
-# This plugin uses smartctl command to get the ssd life in percent(SMART ID:233).
+# This plugin uses smartctl command to get the ssd life in percent
+# using the following attributes Media_Wearout_Indicator,Wear_Leveling_Count,SSD_Life_Left.
 #
 # Exit Codes
 # 0 OK
@@ -115,7 +116,7 @@ INFO=''
 
 for DEV in $DEVICES
 do
-    VAL=$( $SMARTCTL -A $DEV | awk '$1==233{print int($4); exit;}' )
+    VAL=$( $SMARTCTL -A $DEV | awk '/Media_Wearout_Indicator|Wear_Leveling_Count|SSD_Life_Left/{print int($4); exit;}' )
 
     [ -n "$VAL" ] || continue
     INFO="${INFO}${DEV}:$VAL%"
