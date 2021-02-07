@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 #
 # ## Plugin for Nagios to monitor the ssd life
 # ## Written by Ryo Kuroda
@@ -115,7 +115,7 @@ INFO=''
 
 for DEV in $DEVICES
 do
-    if [[ "$DEV" =~ "nvme" ]]; then
+    if [[ $DEV =~ "nvme" ]]; then
       VAL=$( $SMARTCTL -A $DEV | awk '/Available Spare\:/{print int($3); exit;}' )
       else
         VAL=$( $SMARTCTL -A $DEV | awk '$1==233{print int($4); exit;}' )
