@@ -115,8 +115,11 @@ INFO=''
 
 for DEV in $DEVICES
 do
-    VAL=$( $SMARTCTL -A $DEV | awk '$1==233{print int($4); exit;}' )
-
+    if [[ "$DEV" =~ "nvme" ]]; then
+      VAL=$( $SMARTCTL -A $DEV | awk '/Available Spare\:/{print int($3); exit;}' )
+      else
+        VAL=$( $SMARTCTL -A $DEV | awk '$1==233{print int($4); exit;}' )
+    fi
     [ -n "$VAL" ] || continue
     INFO="${INFO}${DEV}:$VAL%"
 
